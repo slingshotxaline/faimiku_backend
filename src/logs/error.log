@@ -1,0 +1,11 @@
+[2026-07-16T06:33:00.671Z] ERROR: ValidationError: Product validation failed: brand: Cast to ObjectId failed for value "" (type string) at path "brand" because of "BSONError"
+    at Document.invalidate (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\document.js:3387:32)
+    at model.$set (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\document.js:1498:12)
+    at model.$set (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\document.js:1150:16)
+    at model.Document (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\document.js:180:12)
+    at model.Model (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\model.js:127:12)
+    at new model (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\model.js:4866:15)
+    at D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\model.js:2791:20
+    at Array.map (<anonymous>)
+    at Function.create (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\model.js:2779:34)
+    at file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/controllers/product.controller.js:77:33

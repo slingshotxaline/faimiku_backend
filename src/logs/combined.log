@@ -144,3 +144,40 @@
 [2026-07-15T05:01:20.731Z] INFO: Seed complete.
 [2026-07-15T05:01:26.530Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
 [2026-07-15T05:01:26.538Z] INFO: Server running on port 5000 [development]
+[2026-07-15T08:04:54.212Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-15T08:04:54.220Z] INFO: Server running on port 5000 [development]
+[2026-07-16T05:16:49.407Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-16T05:16:49.419Z] INFO: Server running on port 5000 [development]
+[2026-07-16T05:16:54.890Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-16T05:16:54.903Z] INFO: Server running on port 5000 [development]
+[2026-07-16T05:18:55.044Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-16T05:18:55.054Z] INFO: Server running on port 5000 [development]
+[2026-07-16T05:19:00.756Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-16T05:19:00.767Z] INFO: Server running on port 5000 [development]
+[2026-07-16T05:21:30.079Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-16T05:21:30.088Z] INFO: Server running on port 5000 [development]
+[2026-07-16T05:21:35.494Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-16T05:21:35.507Z] INFO: Server running on port 5000 [development]
+[2026-07-16T05:22:44.551Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-16T05:22:44.563Z] INFO: Server running on port 5000 [development]
+[2026-07-16T05:23:00.330Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-16T05:23:00.342Z] INFO: Server running on port 5000 [development]
+[2026-07-16T05:23:35.231Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-16T05:23:35.241Z] INFO: Server running on port 5000 [development]
+[2026-07-16T05:29:45.196Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-16T05:29:45.210Z] INFO: Server running on port 5000 [development]
+[2026-07-16T06:11:43.262Z] INFO: Connected for seeding...
+[2026-07-16T06:11:45.103Z] INFO: Seed complete.
+[2026-07-16T06:11:49.965Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-16T06:11:49.979Z] INFO: Server running on port 5000 [development]
+[2026-07-16T06:33:00.671Z] ERROR: ValidationError: Product validation failed: brand: Cast to ObjectId failed for value "" (type string) at path "brand" because of "BSONError"
+    at Document.invalidate (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\document.js:3387:32)
+    at model.$set (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\document.js:1498:12)
+    at model.$set (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\document.js:1150:16)
+    at model.Document (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\document.js:180:12)
+    at model.Model (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\model.js:127:12)
+    at new model (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\model.js:4866:15)
+    at D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\model.js:2791:20
+    at Array.map (<anonymous>)
+    at Function.create (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\model.js:2779:34)
+    at file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/controllers/product.controller.js:77:33

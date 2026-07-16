@@ -30,6 +30,7 @@ import "./events/listeners/notification.listener.js";
 import inventoryRoutes from "./routes/inventory.routes.js";
 import shippingRoutes from "./routes/shipping.routes.js";
 import brandRoutes from "./routes/brand.routes.js";
+import homepageSectionRoutes from "./routes/homepageSection.routes.js";
 
 const app = express();
 
@@ -69,6 +70,7 @@ app.use("/api/v1/cart", cartRoutes);
 app.use("/api/v1/inventory", inventoryRoutes);
 app.use("/api/v1/shipping-zones", shippingRoutes);
 app.use("/api/v1/brands", brandRoutes);
+app.use("/api/v1/homepage-sections", homepageSectionRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
