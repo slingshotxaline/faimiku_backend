@@ -7,6 +7,7 @@ import Product from "../models/Product.js";
 import Coupon from "../models/Coupon.js";
 import logger from "../utils/logger.js";
 import ShippingZone from "../models/ShippingZone.js";
+import HomepageSection from "../models/HomepageSection.js";
 
 // Idempotent-ish seed script: upserts by unique field so re-running doesn't
 // duplicate data. Run with: npm run seed  (see package.json script added below)
@@ -203,15 +204,64 @@ const run = async () => {
   );
 
   const shippingZoneDefs = [
-    { name: "Inside Dhaka", key: "inside_dhaka", charge: 70, isDefault: true, sortOrder: 0,
-      description: "Dhaka city and immediate suburbs" },
-    { name: "Outside Dhaka", key: "outside_dhaka", charge: 120, sortOrder: 1,
-      description: "Anywhere outside Dhaka city" },
+    {
+      name: "Inside Dhaka",
+      key: "inside_dhaka",
+      charge: 70,
+      isDefault: true,
+      sortOrder: 0,
+      description: "Dhaka city and immediate suburbs",
+    },
+    {
+      name: "Outside Dhaka",
+      key: "outside_dhaka",
+      charge: 120,
+      sortOrder: 1,
+      description: "Anywhere outside Dhaka city",
+    },
   ];
   for (const def of shippingZoneDefs) {
     await ShippingZone.findOneAndUpdate({ key: def.key }, def, {
-      upsert: true, new: true, setDefaultsOnInsert: true,
+      upsert: true,
+      new: true,
+      setDefaultsOnInsert: true,
     });
+  }
+
+  // Demonstrates all three homepage section source types out of the box —
+  // edit or delete these at /admin/homepage-sections.
+  const existingSectionCount = await HomepageSection.countDocuments();
+  if (existingSectionCount === 0) {
+    await HomepageSection.create([
+      {
+        title: "🔥 Hot Sale",
+        sourceType: "promo",
+        promoFlag: "isHotSale",
+        limit: 8,
+        sortOrder: 0,
+      },
+      {
+        title: "✨ New Arrivals",
+        sourceType: "promo",
+        promoFlag: "isNewArrival",
+        limit: 8,
+        sortOrder: 1,
+      },
+      {
+        title: "⚡ Flash Sale",
+        sourceType: "promo",
+        promoFlag: "isFlashSale",
+        limit: 8,
+        sortOrder: 2,
+      },
+      {
+        title: "Electronics",
+        sourceType: "category",
+        category: categories["electronics"]._id,
+        limit: 8,
+        sortOrder: 3,
+      },
+    ]);
   }
 
   logger.info("Seed complete.");
