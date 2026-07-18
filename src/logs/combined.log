@@ -181,3 +181,17 @@
     at Array.map (<anonymous>)
     at Function.create (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\model.js:2779:34)
     at file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/controllers/product.controller.js:77:33
+[2026-07-18T04:52:39.264Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-18T04:52:39.278Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:15:33.591Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-18T05:15:33.607Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:16:11.845Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-18T05:16:11.860Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:17:08.549Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-18T05:17:08.563Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:17:21.492Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-18T05:17:21.505Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:17:37.628Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-18T05:17:37.640Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:17:47.059Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-18T05:17:47.073Z] INFO: Server running on port 5000 [development]

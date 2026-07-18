@@ -8,7 +8,18 @@ const router = Router();
 router.post("/", protect, orderController.createOrder);
 router.post("/guest", orderController.createGuestOrder); // no protect — guest checkout
 router.get("/my", protect, orderController.getMyOrders);
-router.get("/", protect, authorize("admin", "super_admin", "warehouse", "finance", "support"), orderController.getAllOrders);
+router.get(
+  "/",
+  protect,
+  authorize("admin", "super_admin", "warehouse", "finance", "support"),
+  orderController.getAllOrders
+);
+router.get(
+  "/export.csv",
+  protect,
+  authorize("admin", "super_admin", "finance"),
+  orderController.exportOrders
+);
 router.get("/:id", protect, orderController.getOrder);
 router.patch(
   "/:id/status",
@@ -21,7 +32,5 @@ router.patch(
   })),
   orderController.updateOrderStatus
 );
-
-
 
 export default router;

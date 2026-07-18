@@ -1,5 +1,6 @@
 import Order from "../../models/Order.js";
 import Product from "../../models/Product.js";
+import Payment from "../../models/Payment.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { emitEvent } from "../../events/eventBus.js";
 import { validateCoupon, recordCouponUsage } from "../coupon/coupon.service.js";
@@ -8,6 +9,7 @@ import {
   issueSessionForUser,
 } from "../auth/auth.service.js";
 import { resolveShippingCost } from "../shipping/shipping.service.js";
+import { toCsv } from "../../utils/csv.js";
 
 const generateOrderNumber = () =>
   `ORD-${Date.now().toString(36).toUpperCase()}-${Math.floor(
@@ -35,7 +37,7 @@ export const createOrder = async ({
 
     const price = product.hasVariants
       ? product.variants.id(item.variantId)?.price
-      : product.basePrice;
+      : product.getEffectivePrice();
     if (price == null) throw new ApiError(400, "Invalid product variant.");
 
     const lineTotal = price * item.quantity;
@@ -53,11 +55,6 @@ export const createOrder = async ({
     });
   }
 
-  // The browser only ever sends WHICH zone was picked, never a price —
-  // the actual charge is looked up here, live, from whatever the admin
-  // currently has it set to (see /admin/shipping). This is what makes it
-  // both dynamic (admin can change 70 -> 80 any time) and tamper-proof
-  // (a modified request body can't discount its own shipping).
   const { shippingCost, zone } = await resolveShippingCost(shippingZoneId);
 
   let discount = 0;
@@ -165,10 +162,55 @@ export const getAllOrders = async ({ page = 1, limit = 20, status }) => {
 };
 
 export const getOrderById = async (orderId) => {
-  const order = await Order.findById(orderId).populate(
-    "customer",
-    "name email"
-  );
+  const order = await Order.findById(orderId)
+    .populate("customer", "name email phone isGuest")
+    .populate("coupon", "code type value");
   if (!order) throw new ApiError(404, "Order not found.");
-  return order;
+
+  const payments = await Payment.find({ order: order._id }).sort({
+    createdAt: -1,
+  });
+
+  return { order, payments };
+};
+
+export const getOrdersAsCsv = async ({ status, from, to }) => {
+  const filter = {};
+  if (status) filter.status = status;
+  if (from || to) {
+    filter.createdAt = {};
+    if (from) filter.createdAt.$gte = new Date(from);
+    if (to) filter.createdAt.$lte = new Date(to);
+  }
+
+  const orders = await Order.find(filter)
+    .populate("customer", "name email phone")
+    .sort({ createdAt: -1 });
+
+  return toCsv(orders, [
+    { label: "Order #", key: "orderNumber" },
+    { label: "Date", get: (o) => new Date(o.createdAt).toISOString() },
+    { label: "Customer Name", get: (o) => o.customer?.name || "" },
+    { label: "Customer Email", get: (o) => o.customer?.email || "" },
+    { label: "Customer Phone", get: (o) => o.customer?.phone || "" },
+    { label: "Items", get: (o) => o.items.length },
+    { label: "Subtotal", key: "subtotal" },
+    { label: "Discount", key: "discount" },
+    { label: "Shipping", key: "shippingCost" },
+    { label: "Total", key: "total" },
+    { label: "Payment Method", key: "paymentMethod" },
+    { label: "Payment Status", key: "paymentStatus" },
+    { label: "Order Status", key: "status" },
+    {
+      label: "Shipping Address",
+      get: (o) =>
+        [
+          o.shippingAddress?.street,
+          o.shippingAddress?.city,
+          o.shippingAddress?.district,
+        ]
+          .filter(Boolean)
+          .join(", "),
+    },
+  ]);
 };
