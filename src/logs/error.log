@@ -9,3 +9,29 @@
     at Array.map (<anonymous>)
     at Function.create (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongoose\lib\model.js:2779:34)
     at file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/controllers/product.controller.js:77:33
+[2026-07-18T05:51:05.412Z] ERROR: Error: bKash authentication failed. Check BKASH_* credentials.
+    at getToken (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:41:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async authHeaders (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:46:17)
+    at async createBkashPayment (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:55:19)
+    at async Module.initiatePayment (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/payment.service.js:45:39)
+    at async file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/controllers/payment.controller.js:6:36
+[2026-07-18T05:51:16.405Z] ERROR: Error: bKash authentication failed. Check BKASH_* credentials.
+    at getToken (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:41:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async authHeaders (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:46:17)
+    at async createBkashPayment (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:55:19)
+    at async Module.initiatePayment (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/payment.service.js:45:39)
+    at async file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/controllers/payment.controller.js:6:36
+[2026-07-18T06:06:27.995Z] ERROR: MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: null }
+    at InsertOneOperation.handleOk (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\insert.js:51:19)
+    at tryOperation (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\execute_operation.js:214:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async executeOperation (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\execute_operation.js:78:16)
+    at async Collection.insertOne (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\collection.js:154:16)
+[2026-07-18T06:08:20.628Z] ERROR: MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: null }
+    at InsertOneOperation.handleOk (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\insert.js:51:19)
+    at tryOperation (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\execute_operation.js:214:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async executeOperation (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\execute_operation.js:78:16)
+    at async Collection.insertOne (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\collection.js:154:16)

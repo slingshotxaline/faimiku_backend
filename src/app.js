@@ -31,6 +31,8 @@ import inventoryRoutes from "./routes/inventory.routes.js";
 import shippingRoutes from "./routes/shipping.routes.js";
 import brandRoutes from "./routes/brand.routes.js";
 import homepageSectionRoutes from "./routes/homepageSection.routes.js";
+import userRoutes from "./routes/user.routes.js";
+
 
 const app = express();
 
@@ -71,6 +73,7 @@ app.use("/api/v1/inventory", inventoryRoutes);
 app.use("/api/v1/shipping-zones", shippingRoutes);
 app.use("/api/v1/brands", brandRoutes);
 app.use("/api/v1/homepage-sections", homepageSectionRoutes);
+app.use("/api/v1/users", userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

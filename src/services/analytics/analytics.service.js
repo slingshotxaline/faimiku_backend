@@ -112,10 +112,7 @@ export const getProductAnalytics = async () => {
     // "Most viewed" needs a view-tracking field; placeholder using ratingsCount as a proxy
     // until a real view counter is added to Product.
     Product.find({ isActive: true }).sort({ ratingsCount: -1 }).limit(10).select("title slug ratingsCount"),
-    Product.find({ isActive: true, ratingsCount: { $gt: 0 } })
-      .sort({ ratingsAverage: -1 })
-      .limit(10)
-      .select("title slug ratingsAverage ratingsCount"),
+    Product.find({ isActive: true, views: { $gt: 0 } }).sort({ views: -1 }).limit(10).select("title slug views"),
     Product.find({ isActive: true }).sort({ createdAt: 1 }).limit(10).select("title slug createdAt"),
   ]);
 
