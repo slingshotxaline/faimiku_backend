@@ -44,6 +44,7 @@ const productSchema = new mongoose.Schema(
     seo: { title: String, description: String, keywords: [String] },
     ratingsAverage: { type: Number, default: 0 },
     ratingsCount: { type: Number, default: 0 },
+    views: { type: Number, default: 0 }, 
 
     isHotSale: { type: Boolean, default: false },
     isNewArrival: { type: Boolean, default: false },

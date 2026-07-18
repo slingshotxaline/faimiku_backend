@@ -195,3 +195,68 @@
 [2026-07-18T05:17:37.640Z] INFO: Server running on port 5000 [development]
 [2026-07-18T05:17:47.059Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
 [2026-07-18T05:17:47.073Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:37:11.032Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-18T05:37:11.046Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:42:29.153Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-18T05:42:29.167Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:43:20.259Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-18T05:43:20.269Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:44:41.108Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-18T05:44:41.120Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:46:08.838Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-18T05:46:08.848Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:46:27.894Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-18T05:46:27.903Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:51:05.062Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order Confirmed — ORD-MRPY7XR7-944
+[2026-07-18T05:51:05.412Z] ERROR: Error: bKash authentication failed. Check BKASH_* credentials.
+    at getToken (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:41:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async authHeaders (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:46:17)
+    at async createBkashPayment (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:55:19)
+    at async Module.initiatePayment (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/payment.service.js:45:39)
+    at async file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/controllers/payment.controller.js:6:36
+[2026-07-18T05:51:16.405Z] ERROR: Error: bKash authentication failed. Check BKASH_* credentials.
+    at getToken (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:41:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async authHeaders (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:46:17)
+    at async createBkashPayment (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/bkash.gateway.js:55:19)
+    at async Module.initiatePayment (file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/services/payment/payment.service.js:45:39)
+    at async file:///D:/Numatrix/Personal/A-Line%20Project/ecommerce%20-1/backend_faimiku/src/controllers/payment.controller.js:6:36
+[2026-07-18T05:53:05.557Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-18T05:53:05.571Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:54:18.389Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-18T05:54:18.398Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:54:51.730Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-18T05:54:51.741Z] INFO: Server running on port 5000 [development]
+[2026-07-18T05:59:00.723Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-18T05:59:00.734Z] INFO: Server running on port 5000 [development]
+[2026-07-18T06:06:27.995Z] ERROR: MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: null }
+    at InsertOneOperation.handleOk (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\insert.js:51:19)
+    at tryOperation (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\execute_operation.js:214:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async executeOperation (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\execute_operation.js:78:16)
+    at async Collection.insertOne (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\collection.js:154:16)
+[2026-07-18T06:08:20.628Z] ERROR: MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: null }
+    at InsertOneOperation.handleOk (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\insert.js:51:19)
+    at tryOperation (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\execute_operation.js:214:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async executeOperation (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\operations\execute_operation.js:78:16)
+    at async Collection.insertOne (D:\Numatrix\Personal\A-Line Project\ecommerce -1\backend_faimiku\node_modules\mongodb\lib\collection.js:154:16)
+[2026-07-18T06:23:54.838Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-18T06:23:54.847Z] INFO: Server running on port 5000 [development]
+[2026-07-18T06:24:31.224Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order Confirmed — ORD-MRPZEXQL-59
+[2026-07-18T06:26:21.220Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order Confirmed — ORD-MRPZHAN9-16
+[2026-07-18T08:44:06.531Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-18T08:44:06.543Z] INFO: Server running on port 5000 [development]
+[2026-07-18T09:42:22.225Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-18T09:42:22.239Z] INFO: Server running on port 5000 [development]
+[2026-07-18T09:47:41.908Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-18T09:47:41.922Z] INFO: Server running on port 5000 [development]
+[2026-07-18T09:55:07.192Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-18T09:55:07.207Z] INFO: Server running on port 5000 [development]
+[2026-07-18T09:55:16.117Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-18T09:55:16.128Z] INFO: Server running on port 5000 [development]
+[2026-07-18T09:57:08.690Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-18T09:57:08.703Z] INFO: Server running on port 5000 [development]
+[2026-07-18T10:37:26.476Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-18T10:37:26.484Z] INFO: Server running on port 5000 [development]

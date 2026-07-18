@@ -6,6 +6,12 @@ import { withActivityLog } from "../middleware/activityLogger.js";
 const router = Router();
 
 router.get("/", productController.getProducts);
+router.get(
+  "/export.csv",
+  protect,
+  authorize("admin", "super_admin"),
+  productController.exportProducts
+);
 router.get("/:slug", productController.getProductBySlug);
 
 router.post(
@@ -19,14 +25,20 @@ router.patch(
   "/:id",
   protect,
   authorize("admin", "super_admin"),
-  withActivityLog("product.update", (req) => ({ entityType: "Product", entityId: req.params.id })),
+  withActivityLog("product.update", (req) => ({
+    entityType: "Product",
+    entityId: req.params.id,
+  })),
   productController.updateProduct
 );
 router.delete(
   "/:id",
   protect,
   authorize("admin", "super_admin"),
-  withActivityLog("product.delete", (req) => ({ entityType: "Product", entityId: req.params.id })),
+  withActivityLog("product.delete", (req) => ({
+    entityType: "Product",
+    entityId: req.params.id,
+  })),
   productController.deleteProduct
 );
 
