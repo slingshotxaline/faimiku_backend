@@ -36,9 +36,27 @@ import userRoutes from "./routes/user.routes.js";
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://faimiku.vercel.app",
+];
+
 app.use(helmet());
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
-app.use(express.json({ limit: "15mb" })); // headroom for base64 image uploads
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
+
+app.use(express.json({ limit: "15mb" })); 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
