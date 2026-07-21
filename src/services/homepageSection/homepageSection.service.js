@@ -5,9 +5,6 @@ import { ApiError } from "../../utils/ApiError.js";
 const PRODUCT_CARD_FIELDS =
   "title slug basePrice offerPrice specialPrice oldPrice baseImage images ratingsAverage isHotSale isNewArrival isFlashSale stock hasVariants";
 
-// Resolves ONE section's product list based on its sourceType. This is where
-// "category" / "promo" / "custom" actually turn into real products — the
-// public homepage endpoint calls this for every active section.
 const resolveProducts = async (section) => {
   if (section.sourceType === "category") {
     if (!section.category) return [];
@@ -31,8 +28,6 @@ const resolveProducts = async (section) => {
       _id: { $in: section.products },
       isActive: true,
     }).select(PRODUCT_CARD_FIELDS);
-    // $in does not preserve order — re-sort to match the admin's manually
-    // chosen sequence, since the whole point of "custom" is picking order.
     const byId = new Map(products.map((p) => [String(p._id), p]));
     return section.products.map((id) => byId.get(String(id))).filter(Boolean);
   }
@@ -40,8 +35,6 @@ const resolveProducts = async (section) => {
   return [];
 };
 
-// Public: returns active sections, each with its products already resolved,
-// ready for the homepage to render directly.
 export const getActiveSectionsWithProducts = async () => {
   const sections = await HomepageSection.find({ isActive: true })
     .populate("category", "name slug")
@@ -53,15 +46,16 @@ export const getActiveSectionsWithProducts = async () => {
       title: section.title,
       subtitle: section.subtitle,
       sourceType: section.sourceType,
+      layout: section.layout,
+      banner: section.banner,
+      category: section.category,
       products: await resolveProducts(section),
     }))
   );
 
-  // Don't show empty sections (e.g. a category with nothing active in it yet)
   return resolved.filter((s) => s.products.length > 0);
 };
 
-// Admin: raw section configs (not resolved) for the editor screen.
 export const getAllSections = () =>
   HomepageSection.find()
     .populate("category", "name slug")
@@ -74,7 +68,7 @@ export const createSection = async (data) => {
 };
 
 export const updateSection = async (id, data) => {
-  if (data.sourceType) validateSourceFields(data);
+  if (data.sourceType || data.layout) validateSourceFields(data);
   const section = await HomepageSection.findByIdAndUpdate(id, data, {
     new: true,
     runValidators: true,
@@ -103,5 +97,11 @@ const validateSourceFields = (data) => {
     (!data.products || data.products.length === 0)
   ) {
     throw new ApiError(400, "Add at least one product for a custom section.");
+  }
+  if (data.layout === "featured" && !data.banner?.image?.url) {
+    throw new ApiError(
+      400,
+      "Upload a banner image for a Featured Collection section."
+    );
   }
 };

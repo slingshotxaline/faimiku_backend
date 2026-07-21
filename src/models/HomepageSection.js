@@ -22,6 +22,13 @@ const homepageSectionSchema = new mongoose.Schema(
     limit: { type: Number, default: 8 }, // how many to show for "category"/"promo" sources
     sortOrder: { type: Number, default: 0 }, // position on the homepage, top to bottom
     isActive: { type: Boolean, default: true },
+    layout: { type: String, enum: ["grid", "featured"], default: "grid" },
+    banner: {
+      image: { url: String, publicId: String },
+      title: String,
+      subtitle: String,
+      linkUrl: String,
+    },
   },
   { timestamps: true }
 );
