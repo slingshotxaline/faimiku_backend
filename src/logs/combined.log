@@ -272,3 +272,41 @@
 [2026-07-21T04:46:31.973Z] INFO: Server running on port 5000 [development]
 [2026-07-21T04:47:16.515Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
 [2026-07-21T04:47:16.525Z] INFO: Server running on port 5000 [development]
+[2026-07-22T04:54:59.864Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-22T04:54:59.875Z] INFO: Server running on port 5000 [development]
+[2026-07-22T10:27:28.182Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order Confirmed — ORD-MRVXUS23-917
+[2026-07-23T03:30:00.646Z] INFO: [email:skipped, no RESEND_API_KEY] To: admin@store.com | Subject: You left something in your cart
+[2026-07-23T03:30:00.698Z] INFO: Abandoned cart reminder sent to admin@store.com
+[2026-07-23T03:30:00.699Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: You left something in your cart
+[2026-07-23T03:30:00.742Z] INFO: Abandoned cart reminder sent to undefined
+[2026-07-23T03:30:00.742Z] INFO: Abandoned cart sweep: 2 reminder(s) sent.
+[2026-07-26T04:08:41.016Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-26T04:08:41.024Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:15:37.012Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-26T04:15:37.020Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:17:48.396Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-26T04:17:48.407Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:21:39.699Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-26T04:21:39.708Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:21:45.032Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-26T04:21:45.040Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:25:55.908Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-26T04:25:55.917Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:25:59.965Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-26T04:25:59.976Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:31:53.306Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-26T04:31:53.316Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:31:56.990Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-26T04:31:56.998Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:33:43.141Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-26T04:33:43.150Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:33:47.233Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-26T04:33:47.271Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:36:34.944Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-26T04:36:34.958Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:36:54.154Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-26T04:36:54.163Z] INFO: Server running on port 5000 [development]
+[2026-07-26T04:38:41.426Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-26T04:38:41.439Z] INFO: Server running on port 5000 [development]
+[2026-07-26T06:15:33.456Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-26T06:15:33.464Z] INFO: Server running on port 5000 [development]
