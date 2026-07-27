@@ -122,12 +122,56 @@ export const createGuestOrder = async ({
   return { order, user: user.toSafeObject(), accessToken, refreshToken };
 };
 
+// Statuses that mean money was actually collected for a COD order (the
+// courier handed over cash) — this is the ONLY point a COD order should
+// ever be counted as revenue.
+const DELIVERY_STATUSES = ["delivered", "completed"];
+
+// Statuses that mean an order's revenue must be reversed out of the
+// dashboard total — either the sale fell through (cancelled/failed) or
+// the customer got their money back (returned/refunded). If the order had
+// already been marked "paid" before landing in one of these statuses, we
+// flip it to "refunded" so it stops counting as revenue. This is a
+// bookkeeping flag only — for prepaid gateways (bKash/SSLCommerz) the
+// ACTUAL refund still has to be issued from that gateway's own dashboard;
+// this just keeps your internal numbers honest in the meantime.
+const REVENUE_REVERSING_STATUSES = [
+  "cancelled",
+  "returned",
+  "refunded",
+  "failed",
+];
+
 export const updateOrderStatus = async (orderId, status, note) => {
   const order = await Order.findById(orderId);
   if (!order) throw new ApiError(404, "Order not found.");
 
   order.status = status;
   order.statusHistory.push({ status, note });
+
+  if (
+    order.paymentMethod === "cod" &&
+    DELIVERY_STATUSES.includes(status) &&
+    order.paymentStatus !== "paid"
+  ) {
+    order.paymentStatus = "paid";
+    await Payment.findOneAndUpdate(
+      { order: order._id, gateway: "cod" },
+      { status: "success", verifiedAt: new Date() }
+    );
+  }
+
+  if (
+    REVENUE_REVERSING_STATUSES.includes(status) &&
+    order.paymentStatus === "paid"
+  ) {
+    order.paymentStatus = "refunded";
+    await Payment.findOneAndUpdate(
+      { order: order._id, status: "success" },
+      { status: "refunded" }
+    );
+  }
+
   await order.save();
 
   emitEvent("order:statusChanged", { order, status });
@@ -137,8 +181,15 @@ export const updateOrderStatus = async (orderId, status, note) => {
 export const getOrdersForCustomer = (customerId) =>
   Order.find({ customer: customerId }).sort({ createdAt: -1 });
 
-export const getAllOrders = async ({ page = 1, limit = 20, status }) => {
-  const filter = status ? { status } : {};
+export const getAllOrders = async ({
+  page = 1,
+  limit = 20,
+  status,
+  paymentStatus,
+}) => {
+  const filter = {};
+  if (status) filter.status = status;
+  if (paymentStatus) filter.paymentStatus = paymentStatus;
   const skip = (Number(page) - 1) * Number(limit);
 
   const [orders, total] = await Promise.all([

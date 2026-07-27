@@ -12,19 +12,64 @@ const dateRangeFilter = (from, to) => {
   return filter;
 };
 
-export const getDashboardSummary = async () => {
+// Dashboard summary — a full picture of money in motion, not just a
+// single "revenue" number:
+//   totalRevenue      — actually collected money (paid prepaid orders +
+//                        COD orders that have been DELIVERED).
+//   totalRefunded      — money given back (returns completed, or an
+//                        already-paid order later cancelled/failed).
+//   totalCancelled     — value of cancelled orders — lost sales, separate
+//                        from refunds.
+//   pendingCodRevenue  — COD orders placed but not yet delivered: real
+//                        money, just not collected yet.
+//
+// { from, to } filters the amount-based aggregates by order createdAt.
+// ordersToday/pendingOrders/productCount/customerCount stay live
+// snapshots regardless of the filter — they're current-state counts,
+// not historical amounts.
+export const getDashboardSummary = async ({ from, to } = {}) => {
   const startOfToday = new Date();
   startOfToday.setHours(0, 0, 0, 0);
 
-  const [totalRevenueAgg, ordersToday, pendingOrders, productCount, customerCount] = await Promise.all([
+  const amountFilter = dateRangeFilter(from, to);
+
+  const [
+    totalRevenueAgg,
+    ordersToday,
+    pendingOrders,
+    productCount,
+    customerCount,
+    refundedAgg,
+    cancelledAgg,
+    pendingCodAgg,
+  ] = await Promise.all([
     Order.aggregate([
-      { $match: { paymentStatus: "paid" } },
+      { $match: { paymentStatus: "paid", ...amountFilter } },
       { $group: { _id: null, total: { $sum: "$total" } } },
     ]),
     Order.countDocuments({ createdAt: { $gte: startOfToday } }),
     Order.countDocuments({ status: "pending" }),
     Product.countDocuments({ isActive: true }),
     User.countDocuments({ role: "customer" }),
+    Order.aggregate([
+      { $match: { paymentStatus: "refunded", ...amountFilter } },
+      { $group: { _id: null, total: { $sum: "$total" }, count: { $sum: 1 } } },
+    ]),
+    Order.aggregate([
+      { $match: { status: "cancelled", ...amountFilter } },
+      { $group: { _id: null, total: { $sum: "$total" }, count: { $sum: 1 } } },
+    ]),
+    Order.aggregate([
+      {
+        $match: {
+          paymentMethod: "cod",
+          paymentStatus: { $ne: "paid" },
+          status: { $nin: ["cancelled", "returned", "refunded", "failed"] },
+          ...amountFilter,
+        },
+      },
+      { $group: { _id: null, total: { $sum: "$total" }, count: { $sum: 1 } } },
+    ]),
   ]);
 
   return {
@@ -33,6 +78,12 @@ export const getDashboardSummary = async () => {
     pendingOrders,
     productCount,
     customerCount,
+    totalRefunded: refundedAgg[0]?.total || 0,
+    refundedOrderCount: refundedAgg[0]?.count || 0,
+    totalCancelled: cancelledAgg[0]?.total || 0,
+    cancelledOrderCount: cancelledAgg[0]?.count || 0,
+    pendingCodRevenue: pendingCodAgg[0]?.total || 0,
+    pendingCodOrderCount: pendingCodAgg[0]?.count || 0,
   };
 };
 
@@ -67,7 +118,10 @@ export const getSalesAnalytics = async ({ from, to }) => {
     ]),
   ]);
 
-  return { byDay, totals: totals[0] || { revenue: 0, shipping: 0, discount: 0, orders: 0 } };
+  return {
+    byDay,
+    totals: totals[0] || { revenue: 0, shipping: 0, discount: 0, orders: 0 },
+  };
 };
 
 export const getCustomerAnalytics = async ({ from, to }) => {
@@ -77,16 +131,24 @@ export const getCustomerAnalytics = async ({ from, to }) => {
     User.countDocuments({ role: "customer", ...match }),
     Order.aggregate([
       { $match: { paymentStatus: "paid" } },
-      { $group: { _id: "$customer", orderCount: { $sum: 1 }, lifetimeValue: { $sum: "$total" } } },
+      {
+        $group: {
+          _id: "$customer",
+          orderCount: { $sum: 1 },
+          lifetimeValue: { $sum: "$total" },
+        },
+      },
     ]),
   ]);
 
   const returningCustomers = orderStats.filter((c) => c.orderCount > 1).length;
   const avgOrderValue = orderStats.length
-    ? orderStats.reduce((sum, c) => sum + c.lifetimeValue, 0) / orderStats.reduce((sum, c) => sum + c.orderCount, 0)
+    ? orderStats.reduce((sum, c) => sum + c.lifetimeValue, 0) /
+      orderStats.reduce((sum, c) => sum + c.orderCount, 0)
     : 0;
   const avgLifetimeValue = orderStats.length
-    ? orderStats.reduce((sum, c) => sum + c.lifetimeValue, 0) / orderStats.length
+    ? orderStats.reduce((sum, c) => sum + c.lifetimeValue, 0) /
+      orderStats.length
     : 0;
 
   return {
@@ -98,23 +160,50 @@ export const getCustomerAnalytics = async ({ from, to }) => {
 };
 
 export const getProductAnalytics = async () => {
-  const [bestSellers, mostViewed, highestRated, slowMoving] = await Promise.all([
-    Order.aggregate([
-      { $match: { paymentStatus: "paid" } },
-      { $unwind: "$items" },
-      { $group: { _id: "$items.product", unitsSold: { $sum: "$items.quantity" } } },
-      { $sort: { unitsSold: -1 } },
-      { $limit: 10 },
-      { $lookup: { from: "products", localField: "_id", foreignField: "_id", as: "product" } },
-      { $unwind: "$product" },
-      { $project: { title: "$product.title", slug: "$product.slug", unitsSold: 1 } },
-    ]),
-    // "Most viewed" needs a view-tracking field; placeholder using ratingsCount as a proxy
-    // until a real view counter is added to Product.
-    Product.find({ isActive: true }).sort({ ratingsCount: -1 }).limit(10).select("title slug ratingsCount"),
-    Product.find({ isActive: true, views: { $gt: 0 } }).sort({ views: -1 }).limit(10).select("title slug views"),
-    Product.find({ isActive: true }).sort({ createdAt: 1 }).limit(10).select("title slug createdAt"),
-  ]);
+  const [bestSellers, mostViewed, highestRated, slowMoving] = await Promise.all(
+    [
+      Order.aggregate([
+        { $match: { paymentStatus: "paid" } },
+        { $unwind: "$items" },
+        {
+          $group: {
+            _id: "$items.product",
+            unitsSold: { $sum: "$items.quantity" },
+          },
+        },
+        { $sort: { unitsSold: -1 } },
+        { $limit: 10 },
+        {
+          $lookup: {
+            from: "products",
+            localField: "_id",
+            foreignField: "_id",
+            as: "product",
+          },
+        },
+        { $unwind: "$product" },
+        {
+          $project: {
+            title: "$product.title",
+            slug: "$product.slug",
+            unitsSold: 1,
+          },
+        },
+      ]),
+      Product.find({ isActive: true, views: { $gt: 0 } })
+        .sort({ views: -1 })
+        .limit(10)
+        .select("title slug views"),
+      Product.find({ isActive: true, ratingsCount: { $gt: 0 } })
+        .sort({ ratingsAverage: -1 })
+        .limit(10)
+        .select("title slug ratingsAverage ratingsCount"),
+      Product.find({ isActive: true })
+        .sort({ createdAt: 1 })
+        .limit(10)
+        .select("title slug createdAt"),
+    ]
+  );
 
   return { bestSellers, mostViewed, highestRated, slowMoving };
 };

@@ -2,9 +2,11 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import * as analyticsService from "../services/analytics/analytics.service.js";
 import * as trafficService from "../services/analytics/traffic.service.js";
+import { resolveDateRangeFromQuery } from "../utils/dateRange.js";
 
 export const getSummary = asyncHandler(async (req, res) => {
-  const summary = await analyticsService.getDashboardSummary();
+  const dateRange = resolveDateRangeFromQuery(req.query);
+  const summary = await analyticsService.getDashboardSummary(dateRange);
   res.status(200).json({ success: true, data: summary });
 });
 
@@ -56,3 +58,6 @@ export const getEventLog = asyncHandler(async (req, res) => {
   const { events, pagination } = await trafficService.getEventLog(req.query);
   res.status(200).json({ success: true, data: events, pagination });
 });
+
+
+
