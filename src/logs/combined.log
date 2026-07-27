@@ -310,3 +310,37 @@
 [2026-07-26T04:38:41.439Z] INFO: Server running on port 5000 [development]
 [2026-07-26T06:15:33.456Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
 [2026-07-26T06:15:33.464Z] INFO: Server running on port 5000 [development]
+[2026-07-26T11:59:08.066Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-26T11:59:08.075Z] INFO: Server running on port 5000 [development]
+[2026-07-27T03:51:42.285Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-27T03:51:42.294Z] INFO: Server running on port 5000 [development]
+[2026-07-27T03:57:33.074Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-27T03:57:33.082Z] INFO: Server running on port 5000 [development]
+[2026-07-27T04:07:29.872Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MRPY7XR7-944 — shipped
+[2026-07-27T04:07:32.196Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MRPY7XR7-944 — out_for_delivery
+[2026-07-27T04:07:35.896Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MRPY7XR7-944 — delivered
+[2026-07-27T04:12:58.944Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order Confirmed — ORD-MS2POFZI-262
+[2026-07-27T04:13:33.687Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MS2POFZI-262 — shipped
+[2026-07-27T04:13:35.094Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MS2POFZI-262 — out_for_delivery
+[2026-07-27T04:13:36.848Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MS2POFZI-262 — delivered
+[2026-07-27T06:26:43.786Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-27T06:26:43.795Z] INFO: Server running on port 5000 [development]
+[2026-07-27T06:36:35.969Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order Confirmed — ORD-MS2UT4W7-585
+[2026-07-27T06:37:00.517Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MS2UT4W7-585 — shipped
+[2026-07-27T06:37:02.118Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MS2UT4W7-585 — out_for_delivery
+[2026-07-27T06:37:04.977Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MS2UT4W7-585 — delivered
+[2026-07-27T07:37:18.301Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order Confirmed — ORD-MS2WZ7ET-367
+[2026-07-27T07:37:41.913Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MS2WZ7ET-367 — shipped
+[2026-07-27T07:38:14.919Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MS2WZ7ET-367 — out_for_delivery
+[2026-07-27T07:38:18.064Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order ORD-MS2WZ7ET-367 — delivered
+[2026-07-27T09:17:03.831Z] INFO: [email:skipped, no RESEND_API_KEY] To: undefined | Subject: Order Confirmed — ORD-MS30JHVQ-273
+[2026-07-27T10:24:54.490Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-07-27T10:24:54.500Z] INFO: Server running on port 5000 [development]
+[2026-07-27T10:24:59.230Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-27T10:24:59.243Z] INFO: Server running on port 5000 [development]
+[2026-07-27T10:25:59.531Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-27T10:25:59.543Z] INFO: Server running on port 5000 [development]
+[2026-07-27T10:27:46.587Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-02.uvx26gw.mongodb.net
+[2026-07-27T10:27:46.601Z] INFO: Server running on port 5000 [development]
+[2026-07-27T10:56:00.933Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-07-27T10:56:00.946Z] INFO: Server running on port 5000 [development]
