@@ -16,6 +16,16 @@ const generateOrderNumber = () =>
     Math.random() * 1000
   )}`;
 
+// Reads a value off a variant's `attributes` field regardless of whether
+// Mongoose has it as a live Map (on a fresh document) or a plain object
+// (after .lean() or JSON round-tripping) — avoids a silent undefined from
+// calling .color on a Map or .get() on a plain object.
+const getAttr = (attributes, key) => {
+  if (!attributes) return null;
+  if (typeof attributes.get === "function") return attributes.get(key) || null;
+  return attributes[key] || null;
+};
+
 export const createOrder = async ({
   customerId,
   items,
@@ -35,9 +45,40 @@ export const createOrder = async ({
     if (!product || !product.isActive)
       throw new ApiError(404, `Product not found: ${item.productId}`);
 
-    const price = product.hasVariants
-      ? product.variants.id(item.variantId)?.price
-      : product.getEffectivePrice();
+    let price;
+    let sku = null;
+    let color = null;
+    let size = null;
+
+    if (product.hasVariants) {
+      const variant = product.variants.id(item.variantId);
+      if (!variant) throw new ApiError(400, "Invalid product variant.");
+
+      price = variant.price;
+      sku = variant.sku || null;
+      color = getAttr(variant.attributes, "color");
+
+      // Sizes share one variant/color, stored as a comma-separated list —
+      // validate the customer's picked size is actually one of them before
+      // recording it, rather than trusting the client blindly.
+      const availableSizes = (getAttr(variant.attributes, "size") || "")
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      if (item.size) {
+        if (availableSizes.length && !availableSizes.includes(item.size)) {
+          throw new ApiError(
+            400,
+            `Size "${item.size}" is not available for this product.`
+          );
+        }
+        size = item.size;
+      }
+    } else {
+      price = product.getEffectivePrice();
+    }
+
     if (price == null) throw new ApiError(400, "Invalid product variant.");
 
     const lineTotal = price * item.quantity;
@@ -48,6 +89,9 @@ export const createOrder = async ({
       variantId: item.variantId || null,
       category: product.category,
       title: product.title,
+      sku,
+      color,
+      size,
       image: product.images?.[0]?.url,
       price,
       quantity: item.quantity,
@@ -122,19 +166,7 @@ export const createGuestOrder = async ({
   return { order, user: user.toSafeObject(), accessToken, refreshToken };
 };
 
-// Statuses that mean money was actually collected for a COD order (the
-// courier handed over cash) — this is the ONLY point a COD order should
-// ever be counted as revenue.
 const DELIVERY_STATUSES = ["delivered", "completed"];
-
-// Statuses that mean an order's revenue must be reversed out of the
-// dashboard total — either the sale fell through (cancelled/failed) or
-// the customer got their money back (returned/refunded). If the order had
-// already been marked "paid" before landing in one of these statuses, we
-// flip it to "refunded" so it stops counting as revenue. This is a
-// bookkeeping flag only — for prepaid gateways (bKash/SSLCommerz) the
-// ACTUAL refund still has to be issued from that gateway's own dashboard;
-// this just keeps your internal numbers honest in the meantime.
 const REVENUE_REVERSING_STATUSES = [
   "cancelled",
   "returned",
@@ -244,7 +276,18 @@ export const getOrdersAsCsv = async ({ status, from, to }) => {
     { label: "Customer Name", get: (o) => o.customer?.name || "" },
     { label: "Customer Email", get: (o) => o.customer?.email || "" },
     { label: "Customer Phone", get: (o) => o.customer?.phone || "" },
-    { label: "Items", get: (o) => o.items.length },
+    {
+      label: "Items",
+      get: (o) =>
+        o.items
+          .map(
+            (i) =>
+              `${i.title}${
+                i.color ? ` (${i.color}${i.size ? `/${i.size}` : ""})` : ""
+              } x${i.quantity}`
+          )
+          .join(" | "),
+    },
     { label: "Subtotal", key: "subtotal" },
     { label: "Discount", key: "discount" },
     { label: "Shipping", key: "shippingCost" },
