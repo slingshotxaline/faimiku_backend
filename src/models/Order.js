@@ -7,6 +7,8 @@ const orderItemSchema = new mongoose.Schema(
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
     title: String,
     sku: String,
+    color: String,
+    size: String,
     image: String,
     price: { type: Number, required: true },
     quantity: { type: Number, required: true },
