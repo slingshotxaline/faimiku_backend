@@ -367,3 +367,16 @@
 [2026-08-23T04:14:21.488Z] INFO: Server running on port 5000 [development]
 [2026-08-23T06:58:28.133Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
 [2026-08-23T06:58:28.146Z] INFO: Server running on port 5000 [development]
+[2026-08-25T06:58:05.309Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-08-25T06:58:05.329Z] INFO: Server running on port 5000 [development]
+[2026-08-25T10:28:47.206Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-08-25T10:28:47.215Z] INFO: Server running on port 5000 [development]
+[2026-08-25T10:30:05.477Z] ERROR: Refresh token reuse detected for user 6a52182784ab859330c3f4f1 — all sessions revoked.
+[2026-08-25T10:44:03.489Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-08-25T10:44:03.498Z] INFO: Server running on port 5000 [development]
+[2026-08-25T10:59:13.743Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-08-25T10:59:13.756Z] INFO: Server running on port 5000 [development]
+[2026-08-25T10:59:25.697Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-00.uvx26gw.mongodb.net
+[2026-08-25T10:59:25.707Z] INFO: Server running on port 5000 [development]
+[2026-08-25T11:00:17.232Z] INFO: MongoDB connected: ac-0jfrgot-shard-00-01.uvx26gw.mongodb.net
+[2026-08-25T11:00:17.246Z] INFO: Server running on port 5000 [development]

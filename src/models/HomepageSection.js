@@ -12,17 +12,28 @@ const homepageSectionSchema = new mongoose.Schema(
     title: { type: String, required: true, trim: true }, // "Men's Collection", "Hot Sale"
     subtitle: String,
 
-    sourceType: { type: String, enum: ["category", "promo", "custom"], required: true },
+    sourceType: {
+      type: String,
+      enum: ["category", "promo", "custom"],
+      required: true,
+    },
 
     // Only one of these is used, depending on sourceType:
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
-    promoFlag: { type: String, enum: ["isFeatured", "isNewArrival", "isHotSale", "isFlashSale"] },
+    promoFlag: {
+      type: String,
+      enum: ["isFeatured", "isNewArrival", "isHotSale", "isFlashSale"],
+    },
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }], // custom — order is preserved
 
     limit: { type: Number, default: 8 }, // how many to show for "category"/"promo" sources
     sortOrder: { type: Number, default: 0 }, // position on the homepage, top to bottom
     isActive: { type: Boolean, default: true },
     layout: { type: String, enum: ["grid", "featured"], default: "grid" },
+    // Optional manual override for the "Show More" link, e.g. "/products?category=panjabi".
+    // If left blank, the frontend derives it automatically from sourceType/category/promoFlag —
+    // useful for "custom" sections where there's no single filter that reproduces a hand-picked list.
+    showMoreLink: { type: String, trim: true },
     banner: {
       image: { url: String, publicId: String },
       title: String,

@@ -16,6 +16,7 @@ export const getProducts = asyncHandler(async (req, res) => {
     hotSale,
     newArrival,
     flashSale,
+    featured,
   } = req.query;
 
   const filter = { isActive: true };
@@ -25,6 +26,7 @@ export const getProducts = asyncHandler(async (req, res) => {
   if (hotSale === "true") filter.isHotSale = true;
   if (newArrival === "true") filter.isNewArrival = true;
   if (flashSale === "true") filter.isFlashSale = true;
+  if (featured === "true") filter.isFeatured = true;
   if (minPrice || maxPrice) {
     filter.basePrice = {};
     if (minPrice) filter.basePrice.$gte = Number(minPrice);
