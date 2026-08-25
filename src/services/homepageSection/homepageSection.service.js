@@ -49,6 +49,8 @@ export const getActiveSectionsWithProducts = async () => {
       layout: section.layout,
       banner: section.banner,
       category: section.category,
+      promoFlag: section.promoFlag,
+      showMoreLink: section.showMoreLink,
       products: await resolveProducts(section),
     }))
   );
