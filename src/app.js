@@ -39,7 +39,10 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:3000",
+  "http://localhost:5173",
   "https://faimiku.vercel.app",
+  "https://faimiku.com",
+  "https://www.faimiku.com",
 ];
 
 app.use(helmet());
@@ -49,7 +52,7 @@ app.use(
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(new Error(`CORS blocked: ${origin}`));
       }
     },
     credentials: true,
